@@ -29,16 +29,23 @@ module.exports = function(grunt) {
     };
     var SVG_NS = "http://www.w3.org/2000/svg";
 
-    var errorHandler = {
-      'warning': function(w) {  
-        // do nothing.
-      },
-      'error': function(e) {
-        log.writeln(e);
-      },
-      'fateError': function(fe) {
-        log.writeln(fe);
-        throw new Error(fe);
+    var errorHandler = function(file) {
+      return {
+        'warning': function(w) {  
+          // do nothing.
+        },
+        'error': function(e) {
+          if (e.match('entity not found')) {
+            return;
+          }
+          log.writeln("Error processing file: " + file);
+          log.writeln(e);
+        },
+        'fateError': function(fe) {
+          log.writeln("Error processing file: " + file);
+          log.writeln(fe);
+          throw new Error(fe);
+        }
       }
     }
 
@@ -56,7 +63,7 @@ module.exports = function(grunt) {
       }).map(function(filepath) {
         // Read file source.
         var fileContents = grunt.file.read(filepath);
-        var doc = new DOMParser({errorHandler: errorHandler}).parseFromString(fileContents, 'text/xml');
+        var doc = new DOMParser({errorHandler: errorHandler(filepath)}).parseFromString(fileContents, 'text/xml');
 
         var childNodes = doc.childNodes;
         for(var i = 0; i < childNodes.length; i++) {
