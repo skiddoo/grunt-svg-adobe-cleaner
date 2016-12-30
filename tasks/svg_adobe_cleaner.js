@@ -1,9 +1,8 @@
-/*
+/**
  * grunt-svg-adobe-cleaner
  * 
  *
- * Copyright (c) 2015 Jaie Wilson
- * Licensed under the MIT license.
+ * @author 2015 Jaie Wilson
  */
 
 'use strict';

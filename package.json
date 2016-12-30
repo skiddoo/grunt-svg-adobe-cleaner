@@ -14,12 +14,7 @@
   "bugs": {
     "url": ""
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "/blob/master/LICENSE-MIT"
-    }
-  ],
+  "licenses": "unlicense",
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0"
